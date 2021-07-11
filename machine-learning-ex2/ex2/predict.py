@@ -13,7 +13,12 @@ def predict(theta, X):
     #                your learned logistic regression parameters.
     #                You should set p to a 1D-array of 0's and 1's
     #
-
+    temp = sigmoid(X @ theta)
+    for i in range(len(temp)):
+        if temp[i] >= 0.5:
+            p[i] = 1
+        else:
+            p[i] = 0
 
     # ===========================================================
 

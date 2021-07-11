@@ -10,8 +10,8 @@ def plot_data(x, y):
 
     # Hint : You can use the 'marker' parameter in the "plt.scatter" function to change the marker type (e.g. "x", "o").
     #        Furthermore, you can change the color of markers with 'c' parameter.
-
+    plt.scatter(x, y, marker='o', c='b')
+    plt.xlabel("x")
+    plt.ylabel("y")
 
     # ===========================================================
-
-    plt.show()

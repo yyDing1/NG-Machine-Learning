@@ -13,6 +13,7 @@ def gradient_descent(X, y, theta, alpha, num_iters):
         #
         # Hint: X.shape = (97, 2), y.shape = (97, ), theta.shape = (2, )
 
+        theta -= alpha / X.shape[0] * (X.T @ X @ theta - X.T @ y)
 
         # ===========================================================
         # Save the cost every iteration
@@ -30,7 +31,7 @@ def gradient_descent_multi(X, y, theta, alpha, num_iters):
         # ===================== Your Code Here =====================
         # Instructions : Perform a single gradient step on the parameter vector theta
         #
-
+        theta -= alpha / X.shape[0] * (X.T @ X @ theta - X.T @ y)
 
         # ===========================================================
         # Save the cost every iteration

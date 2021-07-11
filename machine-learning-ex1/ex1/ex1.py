@@ -45,9 +45,9 @@ input('Program paused. Press ENTER to continue')
 
 # Predict values for population sizes of 35,000 and 70,000
 predict1 = np.dot(np.array([1, 3.5]), theta)
-print('For population = 35,000, we predict a profit of {:0.3f} (This value should be about 4519.77)'.format(predict1*10000))
+print('For population = 35,000, we predict a profit of {:0.3f} (This value should be about 4519.77)'.format(predict1 * 10000))
 predict2 = np.dot(np.array([1, 7]), theta)
-print('For population = 70,000, we predict a profit of {:0.3f} (This value should be about 45342.45)'.format(predict2*10000))
+print('For population = 70,000, we predict a profit of {:0.3f} (This value should be about 45342.45)'.format(predict2 * 10000))
 
 input('Program paused. Press ENTER to continue')
 
@@ -79,4 +79,6 @@ lvls = np.logspace(-2, 3, 20)
 plt.contour(xs, ys, J_vals, levels=lvls, norm=LogNorm())
 plt.plot(theta[0], theta[1], c='r', marker="x")
 
+plt.ioff()
+plt.show()
 input('ex1 Finished. Press ENTER to exit')

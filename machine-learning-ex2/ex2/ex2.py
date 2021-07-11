@@ -113,4 +113,7 @@ p = predict.predict(theta, X)
 print('Train accuracy: {}'.format(np.mean(y == p) * 100))
 print('Expected accuracy (approx): 89.0')
 
+plt.ioff()
+plt.show()
+
 input('ex2 Finished. Press ENTER to exit')

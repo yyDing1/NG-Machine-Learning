@@ -13,7 +13,8 @@ def cost_function(theta, X, y):
     # Instructions : Compute the cost of a particular choice of theta
     #                You should set cost and grad correctly.
     #
-
+    cost += -(y @ np.log(sigmoid(X @ theta)) + (1 - y) @ np.log(1 - sigmoid(X @ theta))) / m
+    grad += (X.T @ sigmoid(X @ theta) - X.T @ y) / m
 
     # ===========================================================
 

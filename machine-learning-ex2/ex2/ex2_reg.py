@@ -83,12 +83,15 @@ initial_theta = np.zeros(X.shape[1])
 # Set regularization parameter lambda to 1 (you should vary this)
 lmd = 1
 
+
 # Optimize
 def cost_func(t):
     return cfr.cost_function_reg(t, X, y, lmd)[0]
 
+
 def grad_func(t):
     return cfr.cost_function_reg(t, X, y, lmd)[1]
+
 
 theta, cost, *unused = opt.fmin_bfgs(f=cost_func, fprime=grad_func, x0=initial_theta, maxiter=400, full_output=True, disp=False)
 
@@ -105,5 +108,8 @@ p = predict.predict(theta, X)
 
 print('Train Accuracy: {:0.4f}'.format(np.mean(y == p) * 100))
 print('Expected accuracy (with lambda = 1): 83.1 (approx)')
+
+plt.ioff()
+plt.show()
 
 input('ex2_reg Finished. Press ENTER to exit')
