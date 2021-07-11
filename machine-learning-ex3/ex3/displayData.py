@@ -18,7 +18,7 @@ def display_data(x):
 
     # Setup blank display
     display_array = - np.ones((pad + display_rows * (example_height + pad),
-                              pad + display_rows * (example_height + pad)))
+                               pad + display_rows * (example_height + pad)))
 
     # Copy each example into a patch on the display array
     curr_ex = 0
@@ -32,7 +32,7 @@ def display_data(x):
             max_val = np.max(np.abs(x[curr_ex]))
             display_array[pad + j * (example_height + pad) + np.arange(example_height),
                           pad + i * (example_width + pad) + np.arange(example_width)[:, np.newaxis]] = \
-                          x[curr_ex].reshape((example_height, example_width)) / max_val
+                x[curr_ex].reshape((example_height, example_width)) / max_val
             curr_ex += 1
 
         if curr_ex > m:
@@ -42,3 +42,4 @@ def display_data(x):
     plt.figure()
     plt.imshow(display_array, cmap='gray', extent=[-1, 1, -1, 1])
     plt.axis('off')
+    plt.show()

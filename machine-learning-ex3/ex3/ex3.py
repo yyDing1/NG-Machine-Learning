@@ -12,7 +12,8 @@ plt.ion()
 # Setup the parameters you will use for this part of the exercise
 input_layer_size = 400  # 20x20 input images of Digits
 num_labels = 10         # 10 labels, from 0 to 9
-                        # Note that we have mapped "0" to label 10
+
+# Note that we have mapped i to label i + 1
 
 
 # ===================== Part 1: Loading and Visualizing Data =====================
@@ -74,5 +75,8 @@ input('Program paused. Press ENTER to continue')
 pred = pova.predict_one_vs_all(all_theta, X)
 
 print('Training set accuracy: {}'.format(np.mean(pred == y)*100))
+
+plt.ioff()
+plt.show()
 
 input('ex3 Finished. Press ENTER to exit')

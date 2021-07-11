@@ -10,8 +10,7 @@ plt.ion()
 # Setup the parameters you will use for this part of the exercise
 input_layer_size = 400  # 20x20 input images of Digits
 hidden_layer_size = 25  # 25 hidden layers
-num_labels = 10         # 10 labels, from 0 to 9
-                        # Note that we have mapped "0" to label 10
+num_labels = 10         # 10 labels, from 0 to 9. Note that we have mapped "0" to label 10
 
 
 # ===================== Part 1: Loading and Visualizing Data =====================
@@ -63,7 +62,8 @@ input('Program paused. Press ENTER to continue')
 
 def getch():
     import termios
-    import sys, tty
+    import sys
+    import tty
 
     def _getch():
         fd = sys.stdin.fileno()
@@ -77,8 +77,10 @@ def getch():
 
     return _getch()
 
+
 # Randomly permute examples
 rp = np.random.permutation(range(m))
+
 for i in range(m):
     print('Displaying Example image')
     example = X[rp[i]]
@@ -91,3 +93,6 @@ for i in range(m):
     s = input('Paused - press ENTER to continue, q + ENTER to exit: ')
     if s == 'q':
         break
+
+plt.ioff()
+plt.show()

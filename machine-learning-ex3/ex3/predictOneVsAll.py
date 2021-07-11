@@ -1,4 +1,5 @@
 import numpy as np
+from sigmoid import *
 
 
 def predict_one_vs_all(all_theta, X):
@@ -21,6 +22,6 @@ def predict_one_vs_all(all_theta, X):
     #        In particular, the max function can also return the index of the
     #        max element, for more information see 'np.argmax' function.
     #
-    
-
+    temp = sigmoid(X @ all_theta.T)
+    p = np.argmax(temp, axis=1) + 1
     return p
