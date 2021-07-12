@@ -11,7 +11,7 @@ def rand_initialization(l_in, l_out):
     #
     # Note : The first column of w corresponds to the parameters for the bias unit
     #
-
+    w = np.random.uniform(-0.2, 0.2, (l_out, 1 + l_in))
 
     # ===========================================================
 

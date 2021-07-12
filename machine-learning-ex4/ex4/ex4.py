@@ -40,8 +40,7 @@ dd.display_data(selected)
 input('Program paused. Press ENTER to continue')
 
 # ===================== Part 2: Loading Parameters =====================
-# In this part of the exercise, we load some pre-initiated
-# neural network parameters
+# In this part of the exercise, we load some pre-initiated neural network parameters
 
 print('Loading Saved Neural Network Parameters ...')
 
@@ -169,6 +168,7 @@ def cost_func(p):
 def grad_func(p):
     return ncf.nn_cost_function(p, input_layer_size, hidden_layer_size, num_labels, X, y, lmd)[1]
 
+
 nn_params, *unused = opt.fmin_cg(cost_func, fprime=grad_func, x0=nn_params, maxiter=400, disp=True, full_output=True)
 
 # Obtain theta1 and theta2 back from nn_params
@@ -197,5 +197,8 @@ input('Program paused. Press ENTER to continue')
 pred = pd.predict(theta1, theta2, X)
 
 print('Training set accuracy: {}'.format(np.mean(pred == y)*100))
+
+plt.ioff()
+plt.show()
 
 input('ex4 Finished. Press ENTER to exit')

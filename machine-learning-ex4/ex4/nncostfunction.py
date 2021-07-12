@@ -1,5 +1,7 @@
 import numpy as np
 from sigmoid import *
+from sklearn.preprocessing import OneHotEncoder
+from sigmoidgradient import *
 
 
 def nn_cost_function(nn_params, input_layer_size, hidden_layer_size, num_labels, X, y, lmd):
@@ -10,6 +12,8 @@ def nn_cost_function(nn_params, input_layer_size, hidden_layer_size, num_labels,
 
     # Useful value
     m = y.size
+    encoder = OneHotEncoder(sparse=False)
+    Y = encoder.fit_transform(y.reshape(m, 1))
 
     # You need to return the following variables correctly
     cost = 0
@@ -46,8 +50,22 @@ def nn_cost_function(nn_params, input_layer_size, hidden_layer_size, num_labels,
     #               the regularization separately and then add them to theta1_grad
     #               and theta2_grad from Part 2.
     #
+    a1 = X  # (5000, 400)
+    z2 = np.c_[np.ones(m), a1] @ theta1.T  # (5000, 25)
+    a2 = sigmoid(z2)  # (5000, 25)
+    z3 = np.c_[np.ones(a2.shape[0]), a2] @ theta2.T  # (5000, 10)
+    h = sigmoid(z3)  # (5000, 10)
 
+    loss = 1 / m * np.sum(-Y * np.log(h) - (1 - Y) * np.log(1 - h))
+    reg = lmd / (2 * X.shape[0]) * (np.sum(theta1[:, 1:] * theta1[:, 1:]) + np.sum(theta2[:, 1:] * theta2[:, 1:]))
+    cost += loss + reg
 
+    d3 = h - Y  # (5000, 10)
+    d2 = d3 @ theta2[:, 1:] * sigmoid_gradient(z2)  # (5000, 25)
+    theta2_grad += (d3.T @ np.c_[np.ones(a2.shape[0]), a2]) / m  # (10, 26)
+    theta1_grad += (d2.T @ np.c_[np.ones(m), a1]) / m  # (25, 401)
+    theta1_grad[:, 1:] += lmd / X.shape[0] * theta1[:, 1:]  # (10, 26)
+    theta2_grad[:, 1:] += lmd / X.shape[0] * theta2[:, 1:]  # (25, 401)
 
     # ====================================================================================
     # Unroll gradients
