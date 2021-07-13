@@ -12,7 +12,6 @@ def train_linear_reg(x, y, lmd):
     def grad_func(t):
         return lrcf.linear_reg_cost_function(t, x, y, lmd)[1]
 
-    theta, *unused = opt.fmin_cg(cost_func, initial_theta, grad_func, maxiter=200, disp=False,
-                                     full_output=True)
+    theta = opt.minimize(fun=cost_func, x0=initial_theta, method='TNC', jac=grad_func).x
 
     return theta

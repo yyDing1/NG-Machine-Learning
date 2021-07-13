@@ -16,7 +16,8 @@ def linear_reg_cost_function(theta, x, y, lmd):
     #                You should set 'cost' to the cost and 'grad'
     #                to the gradient
     #
-
+    cost += 1 / (2 * m) * (x @ theta - y) @ (x @ theta - y) + lmd / (2 * m) * theta[1:] @ theta[1:]
+    grad += 1 / m * (x.T @ x @ theta - x.T @ y) + lmd / m * np.insert(theta[1:], 0, 0)
 
     # ==========================================================
 

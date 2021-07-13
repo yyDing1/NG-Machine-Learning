@@ -9,7 +9,8 @@ def poly_features(X, p):
     # Instructions : Given a vector X, return a matrix X_poly where the p-th
     #                column of X contains the values of X to the p-th power.
     #
-
+    for j in range(p):
+        X_poly[:, j] = np.power(X.flatten(), j + 1)
 
     # ==========================================================
 

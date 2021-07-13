@@ -37,7 +37,7 @@ m = y.size
 plt.figure()
 plt.scatter(X, y, c='r', marker="x")
 plt.xlabel('Change in water level (x)')
-plt.ylabel('Water folowing out of the dam (y)')
+plt.ylabel('Water flowing out of the dam (y)')
 
 input('Program paused. Press ENTER to continue')
 
@@ -48,7 +48,7 @@ input('Program paused. Press ENTER to continue')
 theta = np.ones(2)
 cost, _ = lrcf.linear_reg_cost_function(theta, np.c_[np.ones(m), X], y, 1)
 
-print('Cost at theta = [1  1]: {:0.6f}\n(this value should be about 303.993192'.format(cost))
+print('Cost at theta = [1  1]: {:0.6f}\nthis value should be about 303.993192'.format(cost))
 
 input('Program paused. Press ENTER to continue')
 
@@ -59,13 +59,13 @@ input('Program paused. Press ENTER to continue')
 theta = np.ones(2)
 cost, grad = lrcf.linear_reg_cost_function(theta, np.c_[np.ones(m), X], y, 1)
 
-print('Gradient at theta = [1  1]: {}\n(this value should be about [-15.303016  598.250744]'.format(grad))
+print('Gradient at theta = [1  1]: {}\nthis value should be about [-15.303016  598.250744]'.format(grad))
 
 input('Program paused. Press ENTER to continue')
 
 # ===================== Part 4: Train Linear Regression =====================
 # Once you have implemented the cost and gradient correctly, the
-# train_linear_reg function will use your cost function to train regularzized linear regression.
+# train_linear_reg function will use your cost function to train regularized linear regression.
 #
 # Write Up Note : The data is non-linear, so this will not give a great fit.
 #
@@ -74,6 +74,7 @@ input('Program paused. Press ENTER to continue')
 lmd = 0
 
 theta = tlr.train_linear_reg(np.c_[np.ones(m), X], y, lmd)
+print("theta: {}\nthis value should be about [13.08790348,  0.36777923]".format(theta))
 
 # Plot fit over the data
 plt.plot(X, np.dot(np.c_[np.ones(m), X], theta))
@@ -83,7 +84,7 @@ input('Program paused. Press ENTER to continue')
 # ===================== Part 5: Learning Curve for Linear Regression =====================
 # Next, you should implement the learning_curve function.
 #
-# Write up note : Since the model is underfitting the data, we expect to
+# Write up note : Since the model is under_fitting the data, we expect to
 #                 see a graph with "high bias" -- Figure 3 in ex5.pdf
 #
 
@@ -91,12 +92,11 @@ lmd = 0
 error_train, error_val = lc.learning_curve(np.c_[np.ones(m), X], y, np.c_[np.ones(Xval.shape[0]), Xval], yval, lmd)
 
 plt.figure()
-plt.plot(np.arange(m), error_train, np.arange(m), error_val)
+plt.plot(np.arange(1, m + 1), error_train, np.arange(1, m + 1), error_val)
 plt.title('Learning Curve for Linear Regression')
 plt.legend(['Train', 'Cross Validation'])
 plt.xlabel('Number of Training Examples')
 plt.ylabel('Error')
-plt.axis([0, 13, 0, 150])
 
 input('Program paused. Press ENTER to continue')
 
@@ -105,7 +105,7 @@ input('Program paused. Press ENTER to continue')
 # complete polyFeatures to map each example into its powers
 #
 
-p = 5
+p = 8
 
 # Map X onto Polynomial Features and Normalize
 X_poly = pf.poly_features(X, p)
@@ -143,18 +143,16 @@ plt.figure()
 plt.scatter(X, y, c='r', marker="x")
 plotft.plot_fit(np.min(X), np.max(X), mu, sigma, theta, p)
 plt.xlabel('Change in water level (x)')
-plt.ylabel('Water folowing out of the dam (y)')
-plt.ylim([0, 60])
+plt.ylabel('Water flowing out of the dam (y)')
 plt.title('Polynomial Regression Fit (lambda = {})'.format(lmd))
 
 error_train, error_val = lc.learning_curve(X_poly, y, X_poly_val, yval, lmd)
 plt.figure()
-plt.plot(np.arange(m), error_train, np.arange(m), error_val)
+plt.plot(np.arange(1, m + 1), error_train, np.arange(1, m + 1), error_val)
 plt.title('Polynomial Regression Learning Curve (lambda = {})'.format(lmd))
 plt.legend(['Train', 'Cross Validation'])
 plt.xlabel('Number of Training Examples')
 plt.ylabel('Error')
-plt.axis([0, 13, 0, 150])
 
 print('Polynomial Regression (lambda = {})'.format(lmd))
 print('# Training Examples\tTrain Error\t\tCross Validation Error')
@@ -175,5 +173,8 @@ plt.plot(lambda_vec, error_train, lambda_vec, error_val)
 plt.legend(['Train', 'Cross Validation'])
 plt.xlabel('lambda')
 plt.ylabel('Error')
+
+plt.ioff()
+plt.show()
 
 input('ex5 Finished. Press ENTER to exit')
