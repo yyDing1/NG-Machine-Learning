@@ -5,6 +5,7 @@ from sklearn import svm
 import plotData as pd
 import visualizeBoundary as vb
 import gaussianKernel as gk
+import selectBestParameters as sbp
 
 plt.ion()
 np.set_printoptions(formatter={'float': '{: 0.6f}'.format})
@@ -20,7 +21,6 @@ print('Loading and Visualizing data ... ')
 data = scio.loadmat('ex6data1.mat')
 X = data['X']
 y = data['y'].flatten()
-m = y.size
 
 # Plot training data
 pd.plot_data(X, y)
@@ -37,8 +37,8 @@ print('Training Linear SVM')
 # You should try to change the C value below and see how the decision
 # boundary varies (e.g., try C = 1000)
 
-c = 1000
-clf = svm.SVC(c, kernel='linear', tol=1e-3)
+c = 1
+clf = svm.SVC(C=c, kernel='linear', tol=1e-3)
 clf.fit(X, y)
 
 pd.plot_data(X, y)
@@ -63,6 +63,9 @@ print('Gaussian kernel between x1 = [1, 2, 1], x2 = [0, 4, -1], sigma = {} : {:0
 
 input('Program paused. Press ENTER to continue')
 
+plt.ioff()
+plt.show()
+
 # ===================== Part 4: Visualizing Dataset 2 =====================
 # The following code will load the next dataset into your environment and
 # plot the data
@@ -74,7 +77,6 @@ print('Loading and Visualizing Data ...')
 data = scio.loadmat('ex6data2.mat')
 X = data['X']
 y = data['y'].flatten()
-m = y.size
 
 # Plot training data
 pd.plot_data(X, y)
@@ -87,7 +89,7 @@ input('Program paused. Press ENTER to continue')
 #
 print('Training SVM with RFB(Gaussian) Kernel (this may take 1 to 2 minutes) ...')
 
-c = 1
+c = 100
 sigma = 0.1
 
 
@@ -102,16 +104,20 @@ def gaussian_kernel(x_1, x_2):
 
     return result
 
+
 # clf = svm.SVC(c, kernel=gaussian_kernel)
-clf = svm.SVC(c, kernel='rbf', gamma=np.power(sigma, -2))
+clf = svm.SVC(C=c, kernel='rbf', gamma=np.power(sigma, -2))
 clf.fit(X, y)
 
 print('Training complete!')
 
 pd.plot_data(X, y)
-vb.visualize_boundary(clf, X, 0, 1, .4, 1.0)
+vb.visualize_boundary(clf, X, 0, 1, 0.4, 1.0)
 
 input('Program paused. Press ENTER to continue')
+
+plt.ioff()
+plt.show()
 
 # ===================== Part 6: Visualizing Dataset 3 =====================
 # The following code will load the next dataset into your environment and
@@ -131,12 +137,27 @@ pd.plot_data(X, y)
 
 input('Program paused. Press ENTER to continue')
 
-# ===================== Part 7: Visualizing Dataset 3 =====================
+# ===================== Part 7: Training SVM with RBF Kernel (Dataset 3) =====================
+# After you have implemented the kernel, we can now use it to train the
+# SVM classifier
+#
 
-clf = svm.SVC(c, kernel='rbf', gamma=np.power(sigma, -2))
+Xval = data['Xval']
+yval = data['yval'].flatten()
+
+print("Selecting the best parameters ...")
+
+best_c, best_gamma, score = sbp.select_best_parameters(X, y, Xval, yval)
+
+print("the best c = {}, gamma = {}, in a score of {}".format(best_c, best_gamma, score))
+
+clf = svm.SVC(C=best_c, kernel='rbf', gamma=best_gamma)
 clf.fit(X, y)
 
 pd.plot_data(X, y)
-vb.visualize_boundary(clf, X, -.5, .3, -.8, .6)
+vb.visualize_boundary(clf, X, -0.5, 0.3, -0.8, 0.6)
+
+plt.ioff()
+plt.show()
 
 input('ex6 Finished. Press ENTER to exit')

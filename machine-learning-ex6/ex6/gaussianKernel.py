@@ -9,9 +9,9 @@ def gaussian_kernel(x1, x2, sigma):
 
     # ===================== Your Code Here =====================
     # Instructions : Fill in this function to return the similarity between x1
-    #                and x2 computed using a Gaussian kernel with bandwith sigma
+    #                and x2 computed using a Gaussian kernel with bandwidth sigma
     #
-
+    sim += np.exp(-(x1 - x2) @ (x1 - x2) / (2 * sigma * sigma))
 
     # ==========================================================
 

@@ -4,9 +4,8 @@ from sklearn import svm, datasets
 
 
 def visualize_boundary(clf, X, x_min, x_max, y_min, y_max):
-    h = .02
-    xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
+    x, y = np.meshgrid(np.linspace(x_min, x_max, 1000), np.linspace(y_min, y_max, 1000))
+    Z = clf.predict(np.c_[x.ravel(), y.ravel()])
+    Z = Z.reshape(x.shape)
+    plt.contour(x, y, Z, colors='r')
 
-    Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
-    Z = Z.reshape(xx.shape)
-    plt.contour(xx, yy, Z, levels=[0], colors='r')
