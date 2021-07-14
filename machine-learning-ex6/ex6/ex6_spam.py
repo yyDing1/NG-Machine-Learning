@@ -57,7 +57,7 @@ print('Training Linear SVM (Spam Classification)')
 print('(this may take 1 to 2 minutes)')
 
 c = 0.1
-clf = svm.SVC(c, kernel='linear')
+clf = svm.SVC(C=c, kernel='linear')
 clf.fit(X, y)
 
 p = clf.predict(X)

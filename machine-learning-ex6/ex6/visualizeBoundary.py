@@ -8,4 +8,3 @@ def visualize_boundary(clf, X, x_min, x_max, y_min, y_max):
     Z = clf.predict(np.c_[x.ravel(), y.ravel()])
     Z = Z.reshape(x.shape)
     plt.contour(x, y, Z, colors='r')
-
