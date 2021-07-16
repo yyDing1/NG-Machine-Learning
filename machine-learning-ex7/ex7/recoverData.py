@@ -15,7 +15,7 @@ def recover_data(Z, U, K):
     #                   recovered_j = v' * U(j, 1:K)';
     #                   (above is octave code)
     #
-
+    X_rec = Z @ U[:, :K].T
 
     # ==========================================================
 

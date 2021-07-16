@@ -14,7 +14,7 @@ def project_data(X, U, K):
     #                   projection_k = x' * U(:, k);
     #                   (above is octave code)
     #
-
+    Z = X @ U[:, :K]
 
     # ==========================================================
 

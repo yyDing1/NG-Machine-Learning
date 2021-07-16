@@ -17,8 +17,7 @@ plt.ion()
 np.set_printoptions(formatter={'float': '{: 0.6f}'.format})
 
 # ===================== Part 1: Load Example Dataset =====================
-# We start this exercise by using a small dataset that is easily to
-# visualize
+# We start this exercise by using a small dataset that is easily to visualize
 #
 print('Visualizing example dataset for PCA.')
 
@@ -28,9 +27,10 @@ X = data['X']
 
 # Visualize the example dataset
 plt.figure()
-plt.scatter(X[:, 0], X[:, 1], facecolors='none', edgecolors='b', s=20)
+plt.scatter(X[:, 0], X[:, 1])
 plt.axis('equal')
 plt.axis([0.5, 6.5, 2, 8])
+plt.pause(0.1)
 
 input('Program paused. Press ENTER to continue')
 
@@ -48,6 +48,7 @@ U, S = pca.pca(X_norm)
 
 rk.draw_line(mu, mu + 1.5 * S[0] * U[:, 0])
 rk.draw_line(mu, mu + 1.5 * S[1] * U[:, 1])
+plt.pause(0.1)
 
 print('Top eigenvector: \nU[:, 0] = {}'.format(U[:, 0]))
 print('You should expect to see [-0.707107 -0.707107]')
@@ -58,7 +59,7 @@ input('Program paused. Press ENTER to continue')
 # You should now implement the projection step to map the data onto the
 # first k eigenvectors. The code will then plot the data in this reduced
 # dimensional space. This will show you what the data looks like when
-# using only the correspoding eigenvectors to reconstruct it.
+# using only the corresponding eigenvectors to reconstruct it.
 #
 # You should complete the code in projectData.py
 #
@@ -66,7 +67,7 @@ print('Dimension reductino on example dataset.')
 
 # Plot the normalized dataset (returned from pca)
 plt.figure()
-plt.scatter(X_norm[:, 0], X_norm[:, 1], facecolors='none', edgecolors='b', s=20)
+plt.scatter(X_norm[:, 0], X_norm[:, 1])
 plt.axis('equal')
 plt.axis([-4, 3, -4, 3])
 
@@ -82,9 +83,13 @@ print('Approximation of the first example: {}'.format(X_rec[0]))
 print('(this value should be about [-1.047419 -1.047419])')
 
 # Draw lines connecting the projected points to the original points
-plt.scatter(X_rec[:, 0], X_rec[:, 1], facecolors='none', edgecolors='r', s=20)
+plt.scatter(X_rec[:, 0], X_rec[:, 1])
 for i in range(X_norm.shape[0]):
     rk.draw_line(X_norm[i], X_rec[i])
+
+plt.pause(0.1)
+plt.ioff()
+plt.show()
 
 input('Program paused. Press ENTER to continue')
 
@@ -99,6 +104,7 @@ data = scio.loadmat('ex7faces.mat')
 X = data['X']
 
 disp.display_data(X[0:100])
+plt.pause(0.1)
 
 input('Program paused. Press ENTER to continue')
 
@@ -130,6 +136,8 @@ Z = pd.project_data(X_norm, U, K)
 
 print('The projected data Z has a shape of: {}'.format(Z.shape))
 
+plt.pause(0.1)
+
 input('Program paused. Press ENTER to continue')
 
 # =========== Part 7: Visualization of Faces after PCA Dimension Reduction ===========
@@ -150,6 +158,8 @@ plt.axis('equal')
 disp.display_data(X_rec[0:100])
 plt.title('Recovered faces')
 plt.axis('equal')
+
+plt.pause(0.1)
 
 input('Program paused. Press ENTER to continue')
 
@@ -198,5 +208,9 @@ Z = pd.project_data(X_norm, U, 2)
 plt.figure()
 plt.scatter(Z[selected, 0], Z[selected, 1], c=idx[selected].astype(np.float64), s=15, cmap=cm)
 plt.title('Pixel dataset plotted in 2D, using PCA for dimensionality reduction')
+
+plt.pause(0.1)
+plt.ioff()
+plt.show()
 
 input('ex7_pca Finished. Press ENTER to exit')

@@ -3,6 +3,7 @@ import numpy as np
 import scipy.io as scio
 from skimage import io
 from skimage import img_as_float
+from mpl_toolkits.mplot3d import Axes3D
 
 import runkMeans as km
 import findClosestCentroids as fc
@@ -83,6 +84,10 @@ initial_centroids = np.array([[3, 3], [6, 2], [8, 5]])
 centroids, idx = km.run_kmeans(X, initial_centroids, max_iters, True)
 print('K-Means Done.')
 
+print("The result of K-means: ")
+for i in range(len(centroids)):
+    print("The centroids of the type {}: {}".format(i, centroids[i]))
+
 input('Program paused. Press ENTER to continue')
 
 # ===================== Part 4: K-Means Clustering on Pixels =====================
@@ -112,13 +117,12 @@ X = image.reshape(img_shape[0] * img_shape[1], 3)
 K = 16
 max_iters = 10
 
-# When using K-Means, it is important the initialize the centroids
-# randomly.
+# When using K-Means, it is important to initialize the centroids randomly.
 # You should complete the code in kMeansInitCentroids.py before proceeding
 initial_centroids = kmic.kmeans_init_centroids(X, K)
 
 # Run K-Means
-centroids, idx = km.run_kmeans(X, initial_centroids, max_iters, False)
+centroids = km.run_kmeans(X, initial_centroids, max_iters, False)[0]
 print('K-Means Done.')
 
 input('Program paused. Press ENTER to continue')
@@ -142,12 +146,25 @@ X_recovered = centroids[idx]
 # Reshape the recovered image into proper dimensions
 X_recovered = np.reshape(X_recovered, (img_shape[0], img_shape[1], 3))
 
-plt.subplot(2, 1, 1)
+plt.subplot(1, 2, 1)
 plt.imshow(image)
 plt.title('Original')
 
-plt.subplot(2, 1, 2)
+plt.subplot(1, 2, 2)
 plt.imshow(X_recovered)
 plt.title('Compressed, with {} colors'.format(K))
+plt.show()
+
+fig1 = plt.figure()
+ax1 = Axes3D(fig1)
+ax1.scatter(X[:, 0], X[:, 1], X[:, 2])
+
+fig2 = plt.figure()
+ax2 = Axes3D(fig2)
+for i in range(K):
+    chc = X[np.where(idx == i)]
+    ax2.scatter(chc[:, 0], chc[:, 1], chc[:, 2])
+plt.ioff()
+plt.show()
 
 input('ex7 Finished. Press ENTER to exit')

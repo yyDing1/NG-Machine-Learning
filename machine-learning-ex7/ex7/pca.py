@@ -20,7 +20,8 @@ def pca(X):
     # 
     # Hint: Take a look at full_matrices, compute_uv parameters for the svd function
     #
-    
+    sigma = X.T @ X / m
+    U, S, V = np.linalg.svd(sigma)
 
     # ==========================================================
 

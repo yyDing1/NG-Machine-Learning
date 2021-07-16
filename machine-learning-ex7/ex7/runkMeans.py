@@ -33,20 +33,23 @@ def run_kmeans(X, initial_centroids, max_iters, plot):
 
         # Given the memberships, compute new centroids
         centroids = cc.compute_centroids(X, idx, K)
-
+    if plot:
+        plt.ioff()
+        plt.show()
     return centroids, idx
 
 
 def plot_progress(X, centroids, previous, idx, K, i):
     plt.scatter(X[:, 0], X[:, 1], c=idx, s=15)
 
-    plt.scatter(centroids[:, 0], centroids[:, 1], marker='x', c='black', s=25)
+    plt.scatter(centroids[:, 0], centroids[:, 1], marker='x', c='blue')
 
     for j in range(centroids.shape[0]):
         draw_line(centroids[j], previous[j])
 
     plt.title('Iteration number {}'.format(i + 1))
+    plt.pause(0.1)
 
 
 def draw_line(p1, p2):
-    plt.plot(np.array([p1[0], p2[0]]), np.array([p1[1], p2[1]]), c='black', linewidth=1)
+    plt.plot(np.array([p1[0], p2[0]]), np.array([p1[1], p2[1]]), c='red', linewidth=1)
