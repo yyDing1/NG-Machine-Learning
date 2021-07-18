@@ -63,7 +63,7 @@ input('Program paused. Press ENTER to continue')
 #
 # You should complete the code in projectData.py
 #
-print('Dimension reductino on example dataset.')
+print('Dimension reduction on example dataset.')
 
 # Plot the normalized dataset (returned from pca)
 plt.figure()
@@ -114,8 +114,7 @@ input('Program paused. Press ENTER to continue')
 #
 print('Running PCA on face dataset.\n(this might take a minute or two ...)')
 
-# Before running PCA, it is important to first normalize X by subtracting
-# the mean value from each feature
+# Before running PCA, it is important to first normalize X by subtracting the mean value from each feature
 X_norm, mu, sigma = fn.feature_normalize(X)
 
 # Run PCA
@@ -123,6 +122,8 @@ U, S = pca.pca(X_norm)
 
 # Visualize the top 36 eigenvectors found
 disp.display_data(U[:, 0:36].T)
+
+plt.pause(0.1)
 
 input('Program paused. Press ENTER to continue')
 
@@ -135,8 +136,6 @@ K = 100
 Z = pd.project_data(X_norm, U, K)
 
 print('The projected data Z has a shape of: {}'.format(Z.shape))
-
-plt.pause(0.1)
 
 input('Program paused. Press ENTER to continue')
 
@@ -160,6 +159,8 @@ plt.title('Recovered faces')
 plt.axis('equal')
 
 plt.pause(0.1)
+plt.ioff()
+plt.show()
 
 input('Program paused. Press ENTER to continue')
 
